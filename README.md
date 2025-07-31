@@ -15,4 +15,4 @@ At least one of the games that uses this loader, Itasundorious, has signs of dat
 
 This tool was initially created in order to understand whether the Itasundorious tape was damaged. It has since been used successfully with Itasundorious, Cannon Ball, and Dimensional Wars.
 
-At least one PC-8801 game uses a loader with the string `NONTAMA` in it too, but that one does not use XOR - the data on the tape is loaded into memory verbatim.
+At least one PC-8801 game uses a loader with the string `\xFFNONTAMA` in it too, but that one does not use XOR - the data on the tape is loaded into memory verbatim.
