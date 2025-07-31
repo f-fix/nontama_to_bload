@@ -13,7 +13,7 @@ with. I will call this loader "NONTAMA" since that is the special
 string used to mark the start of the game payload. The name likely
 refers to Katsuhiro Nozawa / 野沢 勝広, alias "Nontama", who worked on
 several of Hudson Soft's games, and who may be the programmer who
-deisgned and/or implemented this loader too.
+designed and/or implemented this loader too.
 
 At least one of the games that uses this loader, Itasundorious, has
 signs of data corruption recorded by Hudson Soft on their tape. This
@@ -74,9 +74,9 @@ def nontama_to_bload(b):
 
 
 def main():
-    _, infn = (
+    _, infn = (  # usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT_start_stop_exe.bin
         sys.argv
-    )  # usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT_start_stop_exe.bin
+    )
     assert os.path.exists(infn)
     p6_in = open(infn, "rb").read()
     bload_out, start_addr, stop_addr, exe_addr = nontama_to_bload(p6_in)
