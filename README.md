@@ -5,7 +5,7 @@ convert PC-6001 mkII NONTAMA-loader tape images to normal BLOAD files
 ```
 usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT_start_stop_exe.bin
 ```
-Afterward, you can run `bash mkrom.sh` to make Warrior bootable cartridge conversions from the BLOAD files
+Afterward, you can run `python mkrom.py` to make Warrior bootable cartridge conversions from the BLOAD files
 
 # History
 Hudson Soft released some games on tape for the NEC PC-6001 mkII which used a special loader that a lot of modern tools have trouble with. I will call this loader "NONTAMA" since that is the special string used to mark the start of the game payload. The name likely refers to Katsuhiro Nozawa / 野沢 勝広, alias "Nontama", who worked on
