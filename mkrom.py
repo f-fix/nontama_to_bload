@@ -24,13 +24,19 @@ Z80 = dict(  # just enough Z80 opcodes to make a loader and trampoline
     LD_C_L=lambda: b"\x4d",
     JP_HL=lambda: b"\xe9",
     JP_addr=lambda addr16: struct.pack("<BH", 0xC3, addr16),
-    JR_index=lambda index8: struct.pack("BB", 0x18, index8),
+    JR_index=lambda index8: struct.pack("Bb", 0x18, index8),
     LD_DE_mem=lambda addr16: struct.pack("<BBH", 0xED, 0x5B, addr16),
     LD_HL_mem=lambda addr16: struct.pack("<BH", 0x2A, addr16),
     LD_HL_immed=lambda immed16: struct.pack("<BH", 0x21, immed16),
     SBC_HL_DE=lambda: struct.pack("BB", 0xED, 0x52),
     LDIR=lambda: struct.pack("BB", 0xED, 0xB0),
 )
+
+
+def indexed_op(op, addr16, *, current_addr16):
+    next_addr16 = current_addr16 + len(op(0))
+    index8 = addr16 - next_addr16
+    return op(index8=index8)
 
 
 def n60_rom_header(rom_entry_point):
@@ -82,9 +88,12 @@ def page_loader(page_load_start_addr, page_load_stop_addr, page_entry_point, nex
         + Z80["OUT_immed_A"](BELUGA_BANK_C_SWITCH_PORT)
         + Z80["OUT_immed_A"](WARRIOR_MK2_BANK_C_SWITCH_PORT)
     )
-    loader += Z80["JR_index"](  # jr 0x4004
-        0x100 - (len(Z80["JR_index"](0x00)) + len(loader[len(header) :]))
-    ) + fake_bload_header(
+    loader += indexed_op(
+        Z80["JR_index"],
+        ROM_START_ADDR + len(header),
+        current_addr16=ROM_START_ADDR + len(loader),
+    )
+    loader += fake_bload_header(
         page_load_start_addr, page_load_stop_addr, page_entry_point
     )
     assert len(loader) == PAGE_LOADER_SIZE
