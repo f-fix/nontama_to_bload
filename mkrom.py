@@ -90,7 +90,7 @@ def page_loader(page_load_start_addr, page_load_stop_addr, page_entry_point, nex
     )
     loader += indexed_op(
         Z80["JR_index"],
-        ROM_START_ADDR + len(header),
+        ROM_START_ADDR + len(header),  # 0x4004
         current_addr16=ROM_START_ADDR + len(loader),
     )
     loader += fake_bload_header(
