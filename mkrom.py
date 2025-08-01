@@ -82,9 +82,9 @@ def page_loader(page_load_start_addr, page_load_stop_addr, page_entry_point, nex
         + Z80["OUT_immed_A"](BELUGA_BANK_C_SWITCH_PORT)
         + Z80["OUT_immed_A"](WARRIOR_MK2_BANK_C_SWITCH_PORT)
     )
-    loader += Z80["JR_index"](
+    loader += Z80["JR_index"](  # jr 0x4004
         0x100 - (len(Z80["JR_index"](0x00)) + len(loader[len(header) :]))
-    ) + fake_bload_header(  # jr 0x4004
+    ) + fake_bload_header(
         page_load_start_addr, page_load_stop_addr, page_entry_point
     )
     assert len(loader) == PAGE_LOADER_SIZE
