@@ -48,17 +48,17 @@ def nontama_to_bload(b):
     assert NONTAMA_HEADER_START in b
     import struct
 
-    start_addr, stop_addr, exe_addr = struct.unpack(
+    start_addr, last_addr, exe_addr = struct.unpack(
         "<HHH", b[b.find(NONTAMA_HEADER_START) + len(NONTAMA_HEADER_START) :][:6]
     )
-    assert start_addr < stop_addr
+    assert start_addr < last_addr
     assert start_addr <= exe_addr
-    assert exe_addr < stop_addr
+    stop_addr = last_addr + 1
     print(
         f"NONTAMA start_addr=0x{start_addr:04X}, stop_addr=0x{stop_addr:04X}, exe_addr=0x{exe_addr:04X}"
     )
     ciphertext = b[b.find(NONTAMA_HEADER_START) + len(NONTAMA_HEADER_START) + 6 :][
-        : stop_addr + 1 - start_addr
+        : stop_addr - start_addr
     ]
     payload = reduce(
         lambda k_p, c: (c, k_p[1] + bytes([k_p[0] ^ c])),
@@ -66,7 +66,7 @@ def nontama_to_bload(b):
         (NONTAMA_INITIAL_VALUE, b""),
     )[1]
     return (
-        struct.pack("<HHH", start_addr, stop_addr, exe_addr) + payload,
+        struct.pack("<HH", start_addr, stop_addr) + payload,
         start_addr,
         stop_addr,
         exe_addr,
