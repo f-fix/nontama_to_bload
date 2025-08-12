@@ -228,7 +228,7 @@ def decode_pc6001_8bit_charset(byts, preserve=MINIMAL_CONTROLS):
 
 
 def main():
-    _, infn = (  # usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT[_loadNN]_start_stop_exe.bin
+    _, infn = (  # usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT[_name][_loadNN]_start_stop_exe.bin
         sys.argv
     )
     assert os.path.exists(infn)
