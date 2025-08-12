@@ -14,7 +14,7 @@ This tool was initially created in order to understand whether my Itasundorious 
 - `Gang Man`/`ギャングマン`
 - `Ginkou Goutou (Machinegun Joe vs. the Mafia)`/`銀行強盗（マシンガンジョー VS ザ・マフィア）`
 - `Salad no Kuni no Tomato-hime`/`サラダの国のトマト姫`
-- `3-biki no Kobuta no Daibouken` `STEP 1`/`3びきの子ぶたの大冒険` `STEP1`
+- `3-biki no Kobuta no Daibouken` `STEP 1`/`３びきの子ぶたの大冒険` `STEP1`
 - `Dimensional Wars (Jigen Sensou)`/`ディメンジョナルウォーズ（次元戦争）`
 - `Dezeni Land`/`デゼニランド`
 - `Nuts & Milk`/`ナッツ&ミルク`
