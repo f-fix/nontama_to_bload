@@ -3,7 +3,7 @@ convert PC-6001 mkII NONTAMA-loader tape images to normal BLOAD files
 
 # Usage
 ```
-usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT_start_stop_exe.bin
+usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT[_name][_loadNN]_start_stop_exe.bin
 ```
 Afterward, you can run `python mkrom.py` to make Warrior bootable cartridge conversions from the BLOAD files
 
