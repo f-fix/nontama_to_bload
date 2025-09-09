@@ -1,5 +1,5 @@
 # nontama_to_bload
-convert PC-6001 mkII NONTAMA-loader tape images to normal BLOAD files
+convert PC-6001 mkII NONTAMA-loader tape images to normal PC-6001 BLOAD files
 
 # Usage
 ```
@@ -7,8 +7,16 @@ usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT[_name][_loadNN]_sta
 ```
 Afterward, you can run `python mkrom.py` to make Warrior bootable cartridge conversions from the BLOAD files
 
+# mload_to_bload
+convert MSX "M"-loader (my name, I don't know what they called it) tape images to normal MSX BLOAD files
+
+# Usage
+```
+usage: python mload_to_bload.py INPUT.cas  ## writes INPUT[_name]_start_stop_exe.bin and INPUT[_name]_start_stop_exe_bin.cas
+```
+
 # Compatibility
-This tool was initially created in order to understand whether my Itasundorious tape was damaged (it wasn't, or rather the damage happened before the tape was written.) It has since been used successfully with:
+The nontama_to_bload tool was initially created in order to understand whether my Itasundorious tape was damaged (it wasn't, or rather the damage happened before the tape was written.) It has since been used successfully with:
 - `Itasundorious`/`イタサンドリアス`
 - `Cannon Ball`/`キャノンボール`
 - `Gang Man`/`ギャングマン`
@@ -23,6 +31,14 @@ This tool was initially created in order to understand whether my Itasundorious 
 - `Hitsuji Yai!`/`ひつじや～い！` 
 - `***** Bros. Special`/`〇〇〇ブラザーズSPECIAL`
 - `Yakyuukyou`/`野球狂`
+
+The mload_to_bload tool was initially created in order to understand whether my Vegetable Crash tape was OK (it was!) It has since been used successfully with:
+- `Binary Land` (Hudson Soft) (UK)
+- `Fire Rescure` (Hudson Soft) (UK)
+- `Stop the Express` (Hudson Soft) (Aackosoft - Eaglesoft) (Europe?)
+- `Tanque Destructor`/`Driller Tank` (Hudson Soft) (Indescomp) (Sony) (Spain)
+- `Vegetable Crash`/`ベジタブルクラッシュ` (Honeybee Soft) (Hudson Soft) (Japan)
+- `Zero Fighter`/`ゼロファイター` (Honeybee Soft) (Hudson Soft) (Japan)
 
 # History
 Hudson Soft released some games on tape for the NEC PC-6001 mkII which used a special loader that a lot of modern tools have trouble with. I will call this loader "NONTAMA" since that is the special string used to mark the start of the game payload. The name likely refers to Katsuhiro Nozawa / 野沢 勝広, alias "Nontama", who worked on
