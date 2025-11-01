@@ -48,8 +48,7 @@ ROM_START_ADDR = 0x4000
 FAKE_BLOAD_MAGIC = b"\xfe"  # magic byte used for BLOAD data on FAT12/16/etc.
 PAGE_LOADER_CONTINUATION_ENTRY_POINT = ROM_START_ADDR + 0x38
 
-BELUGA_BANK_C_SWITCH_PORT = 0x70
-WARRIOR_MK2_BANK_C_SWITCH_PORT = 0x32
+BELUGA_BANK_C_SWITCH_PORT = 0x7F
 
 
 def fake_bload_header(load_start_addr, load_stop_addr, entry_point):
@@ -86,7 +85,7 @@ def page_loader(page_load_start_addr, page_load_stop_addr, page_entry_point, nex
         + Z80["JP_HL"]()
         + Z80["LD_A_immed"](next_page)
         + Z80["OUT_immed_A"](BELUGA_BANK_C_SWITCH_PORT)
-        + Z80["OUT_immed_A"](WARRIOR_MK2_BANK_C_SWITCH_PORT)
+        + 2 * Z80["NOP"]()
     )
     loader += indexed_op(
         Z80["JR_index"],
