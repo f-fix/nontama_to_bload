@@ -32,6 +32,7 @@ The nontama_to_bload tool was initially created in order to understand whether m
 - `***** Bros. Special`/`〇〇〇ブラザーズSPECIAL`
 - `Yakyuukyou`/`野球狂`
 - `バブルクンド1999` (Babbulkund 1999)
+- `ポリスドッグ`/`Police Dog`
 
 The mload_to_bload tool was initially created in order to understand whether my Vegetable Crash tape was OK (it was!) It has since been used successfully with:
 - `Binary Land` (Hudson Soft) (UK)
