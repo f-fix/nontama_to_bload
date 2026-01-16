@@ -460,6 +460,7 @@ def smoke_test_pc6001_8bit_charset():
             == expected_result
         ), f"decode_pc6001_8bit_charset(encode_pc6001_8bit_charset({repr(test_data)})) returned:\n {repr(decode_pc6001_8bit_charset(encode_pc6001_8bit_charset(test_data)))}, expecting:\n {repr(expected_result)}"
 
+smoke_test_pc6001_8bit_charset()
 
 def main():
     _, infn = (  # usage: python nontama_to_bload.py INPUT.p6  ## writes OUTPUT[_name][_loadNN]_start_stop_exe.bin
