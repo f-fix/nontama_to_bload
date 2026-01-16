@@ -99,13 +99,15 @@ ASCII_CONTROLS = bytes(range(0x20)) + b"\x7f"
 # not handle the alternate character set shift sequences well. it also
 # does not handle Kanji or overseas charsets at all! the hiragana and
 # kanji here should all be half-width ones, but Unicode is missing
-# those so we live with fullwidth instead.
+# those so we live with fullwidth instead. the arrows and control
+# pictures shown here in the first row are actually control characters
+# and are not graphically displayable on an MSX.
 MSX_8BIT_CHARSET = (
     "␀␁␂␃␄␅␆␇␈␉␊␋␌␍␎␏␐␑␒␓␔␕␖␗␘␙␚␛￫￩￪￬"
     " !\"#$%&'()*+,-./0123456789:;<=>?"
     "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[¥]^_"
     "`abcdefghijklmnopqrstuvwxyz{¦}~␡"
-    "♠♥♦♣￮•をぁぃぅぇぉゃゅょっーあいうえおかきくけこさしすせそ"
+    "♠♥♦♣￮•をぁぃぅぇぉゃゅょっ\uf8f4あいうえおかきくけこさしすせそ"
     "\uf8f0｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿ"
     "ﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ"
     "たちつてとなにぬねのはひふへほまみむめもやゆよらりるれろわん\uf8f2\uf8f3"
@@ -120,6 +122,16 @@ MSX_8BIT_CHARMAP_COMPAT = {
     unicodedata.normalize("NFKD", key): value
     for key, value in MSX_8BIT_CHARMAP.items()
     if unicodedata.normalize("NFKD", key) != key
+} | {
+    "\N{KATAKANA-HIRAGANA VOICED SOUND MARK}": MSX_8BIT_CHARMAP[
+        "\N{HALFWIDTH KATAKANA VOICED SOUND MARK}"
+    ],
+    "\N{KATAKANA-HIRAGANA SEMI-VOICED SOUND MARK}": MSX_8BIT_CHARMAP[
+        "\N{HALFWIDTH KATAKANA SEMI-VOICED SOUND MARK}"
+    ],
+    "\N{KATAKANA-HIRAGANA PROLONGED SOUND MARK}": MSX_8BIT_CHARMAP[
+        "\N{HALFWIDTH KATAKANA-HIRAGANA PROLONGED SOUND MARK}"
+    ],
 }
 
 
@@ -136,7 +148,11 @@ def encode_msx_8bit_charset(s, try_harder=True):
                     .lower()
                     .startswith("katakana letter")
                 )
-                else s[i : i + 1]
+                else (
+                    "~"
+                    if s[i : i + 1] == "\N{WAVE DASH}"
+                    else "-" if s[i : i + 1] == "\N{HYPHEN}" else s[i : i + 1]
+                )
             )
             for i in range(len(s))
         ]
@@ -150,7 +166,7 @@ def encode_msx_8bit_charset(s, try_harder=True):
         if byt is None and try_harder:
             cch = unicodedata.normalize("NFKD", ch)
             byt = MSX_8BIT_CHARMAP.get(cch, MSX_8BIT_CHARMAP_COMPAT.get(cch)) or (
-                bytes([ord(cch)]) if ord(cch) <= 0x7F else None
+                bytes([ord(cch)]) if len(cch) == 1 and ord(cch) <= 0x7F else None
             )
         if byt is None:
             raise UnicodeEncodeError(
