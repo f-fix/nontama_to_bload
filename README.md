@@ -18,6 +18,7 @@ usage: python mload_to_bload.py INPUT.cas  ## writes INPUT[_name]_start_stop_exe
 # Compatibility
 The nontama_to_bload tool was initially created in order to understand whether my Itasundorious tape was damaged (it wasn't, or rather the damage happened before the tape was written.) It has since been used successfully with:
 - `Itasundorious`/`イタサンドリアス`
+- `Vegetable Crash`/`ベジタブルクラッシュ`
 - `Cannon Ball`/`キャノンボール`
 - `Gang Man`/`ギャングマン`
 - `Kinasai!`/`来なさい!`
